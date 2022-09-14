@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Xml.Linq;
+//using SpielProjekt.Person;
+
 
 
 
@@ -10,13 +13,17 @@ namespace SpielProjekt
 	{
 		public static void Main()
 		{
-            Gegner();
+            //Gegner();
             Console.WriteLine("");
-            Spieler();
-            
+            //Spieler();
+            Person Pla = Spieler();
+            Person Geg =Gegner();
+            Dice();
+            Schlag(Pla,Geg);
+            Console.WriteLine($"Das Leben von {Geg.Name} beträgt {Geg.HP}");
         }
 
-        public static Person Gegner()
+        static Person Gegner()
         {
             Console.WriteLine("Name");
             string Name = Console.ReadLine();
@@ -24,7 +31,6 @@ namespace SpielProjekt
             int Staerke = int.Parse(Console.ReadLine());
             Console.WriteLine("Vitality");
             int Vitality = int.Parse(Console.ReadLine());
-            //Opponent.HP = Opponent.Staerke + 3 * Opponent.Vitality;
             string Klasse = "Gegner";
 
             Person Opponent = new Person(Klasse, Name, Staerke, Vitality);
@@ -33,7 +39,7 @@ namespace SpielProjekt
             return Opponent;
 
         }
-        public static Person Spieler()
+        static Person Spieler()
         {
             Console.WriteLine("Name");
             string Name = Console.ReadLine();
@@ -41,29 +47,46 @@ namespace SpielProjekt
             int Staerke = int.Parse(Console.ReadLine());
             Console.WriteLine("Vitality");
             int Vitality = int.Parse(Console.ReadLine());
-            //Opponent.HP = Opponent.Staerke + 3 * Opponent.Vitality;
             string Klasse = "Spieler";
 
             Person Player = new Person(Klasse, Name, Staerke, Vitality);
             Player.Darstellung();
-            
+
             return Player;
 
         }
-        
-        //public static int Schlag()
-        //{
-        //    int dmg;
+
+        public static void Schlag(Person Ang, Person Ver)
+        {
+            int Schaden = (5* Ang.Staerke -2 * Ver.Vitality);
+            if (Schaden<0)
+            {
+                Schaden = 0;
+            }
             
-        //    //Richtung Opponent oder Spieler
-        //    if (true)
-        //    {
+            Ver.HP = Ver.HP - Schaden;
 
-        //    }
-        //    //Schaden = 1,5*Staerke - 0,3*Vitality des Gegners
+            //Richtung Opponent oder Spieler
 
-        //    return dmg;
-        //}
+            //Schaden = 1,5*Staerke - 0,3*Vitality des Gegners
+
+            }
+        public static int Dice()
+        {
+            Random rnd = new Random();
+            int Dice = rnd.Next(1);
+            if (Dice ==1)
+            {
+                Console.WriteLine("Kopf " +Dice);
+            }
+            else
+            {
+                
+                Console.WriteLine("Zahl " +Dice);
+            }
+            return Dice;
+
+        }
 
 
     }
